@@ -1,0 +1,148 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, appendix, bm, graphicx, hyperref, mathrsfs}
+\graphicspath{{./pictures/}}
+\usepackage{listings, xcolor, fontspec}
+\setmonofont{Consolas}
+\usepackage[left = 2.5cm, right = 2.5cm, top = 2cm, bottom = 2cm]{geometry}
+\linespread{1.5}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=cyan,
+	filecolor=blue,      
+	urlcolor=red,
+	citecolor=green,
+}
+\lstset{
+    columns=fixed,       
+    numbers=left,                                        % 在左侧显示行号
+    numberstyle=\tiny\color{gray},                       % 设定行号格式
+    frame=none,
+    backgroundcolor=\color[RGB]{245,245,244},            % 设定背景颜色
+    basicstyle=\small\fontspec{Consolas},
+    keywordstyle=\color[RGB]{40,40,255},                 % 设定关键字颜色
+    numberstyle=\footnotesize\color{darkgray},           
+    commentstyle=\it\color[RGB]{0,96,96},                % 设置代码注释的格式
+    stringstyle=\rmfamily\slshape\color[RGB]{128,0,0},   % 设置字符串格式
+    showstringspaces=false,                              % 不显示字符串中的空格
+    language=c++,                                        % 设置语言
+}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{definition}[theorem]{定义}
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{corollary}[theorem]{推论}
+\newtheorem{example}[theorem]{例}
+\newtheorem{proposition}[theorem]{命题}
+
+\begin{document}
+
+\thispagestyle{empty}
+
+\vspace*{2cm}
+
+\begin{figure}
+    \centering
+    \includegraphics[width = 13cm]{logo.pdf}
+\end{figure}
+
+\begin{center}
+    \Huge\textbf{报告或论文模板}
+\end{center}
+
+\vspace*{5cm}
+
+\begin{table}[htpb]
+    \centering
+    \large
+    \begin{tabular}{ll}
+        \textbf{姓名：} & 李宁 \\
+        \textbf{学号：} & PB21111715 \\
+        \textbf{班级：} & 计科三班 \\
+        \textbf{日期：} & \today \\
+    \end{tabular}    
+\end{table}
+
+\newpage
+\setcounter{page}{0}
+\thispagestyle{empty}
+\vspace*{1cm}
+\renewcommand{\abstractname}{\Large\textbf{摘要}}
+\begin{abstract}
+    \vspace*{0.5cm}
+    这里是摘要. 
+    \vspace*{0.5cm}
+    \par\textbf{关键词：}这里是关键词; 这里是关键词. 
+\end{abstract}
+
+\newpage
+\pagenumbering{Roman}
+\setcounter{page}{1}
+\tableofcontents
+
+\newpage
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+\section{一级标题}
+
+\subsection{二级标题}
+
+这里是正文.
+\begin{lstlisting}
+#include<stdio.h>
+int main()  //主函数
+{
+    printf("hello, world!");
+}
+return 0;
+\end{lstlisting}
+
+\subsection{二级标题}
+
+这里是正文.
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=8cm]{test.jpg}
+%     \caption{图片标题}
+% \end{figure} 
+
+\begin{enumerate}
+    \item[(1)] 这是第一点; 
+    \item[(2)] 这是第二点;
+    \item[(3)] 这是第三点. 
+\end{enumerate}
+
+\begin{itemize}
+    \item 这是一点; 
+    \item 这是一点;
+    \item 这是一点. 
+\end{itemize}
+
+\newpage
+
+\begin{table}[htbp]
+    \caption{这是一个表格}
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    表头 & 一 & 二 & 三 \\ \hline
+    一  & 6 & 6 & 6 \\ \hline
+    二  & 6 & 6 & 6 \\ \hline
+    \end{tabular}
+\end{table}
+
+\newpage
+
+\begin{thebibliography}{99}
+    \bibitem{a}作者. \emph{文献}[M]. 地点:出版社,年份.
+    \bibitem{b}作者. \emph{文献}[M]. 地点:出版社,年份.
+\end{thebibliography}
+
+\newpage
+
+\begin{appendices}
+    \renewcommand{\thesection}{\Alph{section}}
+    \section{附录标题}
+        这里是附录. 
+\end{appendices}
+
+\end{document}

@@ -1,0 +1,84 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, graphics, diagbox, float}
+\graphicspath{{./figures/}}
+\usepackage[left = 2.5cm, right = 2.5cm, top = 2cm, bottom = 2cm]{geometry}
+\pagestyle{plain}
+
+\ctexset{
+    % 修改 section。
+    section={   
+        name={,、},
+        number={\chinese{section}},
+        format=\heiti\raggedright\zihao{4}, % 设置 section 标题为黑体、右对齐、4号字
+        aftername=\hspace{0pt},
+        beforeskip=1ex,
+        afterskip=1ex
+    },
+    % 修改 subsection。
+    subsection={   
+        name={,、},
+        number={\arabic{subsection}},
+        format=\heiti\zihao{-4}, % 设置 subsection 标题为黑体、小4号字
+        aftername=\hspace{0pt},
+        beforeskip=1ex,
+        afterskip=1ex
+    }
+}
+
+\begin{document}
+
+\begin{center}
+    \Large\textbf{标题}
+\end{center}
+
+{\centering
+    \textbf{姓名：}李宁 \quad 
+    \textbf{学号：}PB21111715 \quad 
+    \textbf{班级：}计科三班 \quad 
+    \textbf{日期：} \today
+}
+
+\section{实验名称}
+
+\section{实验目的}
+\begin{enumerate}
+    \item 
+    \item 
+    \item 
+\end{enumerate}
+
+\section{实验原理}
+
+\section{实验仪器}
+% \begin{figure}[H]
+% \centering
+% \includegraphics{1.png} 
+% \qquad
+% \includegraphics{2.png}
+% \caption{图片标题}
+% \end{figure} 
+
+\section{实验步骤}
+\begin{enumerate}
+    \item[(1)] 
+    \item[(2)] 
+    \item[(3)] 
+    \item[(4)] 
+    \item[(5)] 
+\end{enumerate}
+
+\section{数据处理}
+
+% \begin{table}[H]
+%     \caption{表格标题}
+%     \centering
+%     \setlength{\tabcolsep}{5mm}{
+%     \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|}
+%     \hline
+%     \textbf{}(cm) &  &  &  &  &  &  &  &  & \\ \hline
+%     \textbf{}  &  &  &  &  &  &  &  &  & \\ \hline
+%     \textbf{}  &  &  &  &  &  &  &  &  & \\ \hline
+%     \end{tabular}}
+% \end{table}
+
+\end{document}
