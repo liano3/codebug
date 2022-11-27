@@ -5,40 +5,41 @@
 
 #define MAXVERTEX 100
 #define MAXEDGE 20000
+#define MAXLEN 1000
 
-//¶¥µã½á¹¹Ìå
+//é¡¶ç‚¹ç»“æ„ä½“
 typedef struct Vertex
 {
-    int id;                //¶¥µã±àºÅ
-    int w;                 //¶¥µãÈ¨Öµ
-    int degree;            //¶¥µãµÄ¶È
-    long edges[MAXVERTEX]; //±ßµÄ±àºÅ
+    int id;                //é¡¶ç‚¹ç¼–å·
+    int w;                 //é¡¶ç‚¹æƒå€¼
+    int degree;            //é¡¶ç‚¹çš„åº¦
+    long edges[MAXVERTEX]; //è¾¹çš„ç¼–å·
 } Vertex;
 
-//±ß½á¹¹Ìå
+//è¾¹ç»“æ„ä½“
 typedef struct Edge
 {
-    long id; //±ßµÄ±àºÅ
-    int h;   //±ßÍ·¶¥µã±àºÅ
-    int t;   //±ßÎ²¶¥µã±àºÅ
-    int w;   //È¨Öµ
+    long id; //è¾¹çš„ç¼–å·
+    int h;   //è¾¹å¤´é¡¶ç‚¹ç¼–å·
+    int t;   //è¾¹å°¾é¡¶ç‚¹ç¼–å·
+    int w;   //æƒå€¼
 } Edge;
 
-//Í¼½á¹¹Ìå
+//å›¾ç»“æ„ä½“
 typedef struct Graph
 {
-    Vertex v[MAXVERTEX]; //¶¥µãÊı×é
-    Edge e[MAXEDGE];     //±ßÊı×é
-    bool dirctional;     // t:ÓĞÏòÍ¼£¬f:ÎŞÏòÍ¼
-    bool weighted;       // t:´øÈ¨Í¼£¬f:µÈÈ¨Í¼
-    unsigned nv;         //¶¥µãÊı
-    unsigned ne;         //±ßÊı
+    Vertex v[MAXVERTEX]; //é¡¶ç‚¹æ•°ç»„
+    Edge e[MAXEDGE];     //è¾¹æ•°ç»„
+    bool dirctional;     // t:æœ‰å‘å›¾ï¼Œf:æ— å‘å›¾
+    bool weighted;       // t:å¸¦æƒå›¾ï¼Œf:ç­‰æƒå›¾
+    unsigned nv;         //é¡¶ç‚¹æ•°
+    unsigned ne;         //è¾¹æ•°
 } Graph;
 
-//Í¼µÄ»ù±¾²Ù×÷
+//å›¾çš„åŸºæœ¬æ“ä½œ
 int getVexIdx(Graph *g, int id);
 long getEdgeIdx(Graph *g, long id);
-//²éÕÒ¸ø¶¨±àºÅµÄ¶¥µã£¬·µ»ØÆä¶¥µãÊı×éÏÂ±ê
+//æŸ¥æ‰¾ç»™å®šç¼–å·çš„é¡¶ç‚¹ï¼Œè¿”å›å…¶é¡¶ç‚¹æ•°ç»„ä¸‹æ ‡
 inline int getVexIdx(Graph *g, int id)
 {
     for (int i = 0; i < g->nv; i++)
@@ -48,7 +49,7 @@ inline int getVexIdx(Graph *g, int id)
     system("pause");
     exit(0);
 }
-//²éÕÒ¸ø¶¨±àºÅµÄ±ß£¬·µ»ØÆä±ßÊı×éÏÂ±ê
+//æŸ¥æ‰¾ç»™å®šç¼–å·çš„è¾¹ï¼Œè¿”å›å…¶è¾¹æ•°ç»„ä¸‹æ ‡
 inline long getEdgeIdx(Graph *g, long id)
 {
     for (long i = 0; i < g->ne; i++)
@@ -59,31 +60,31 @@ inline long getEdgeIdx(Graph *g, long id)
     exit(0);
 }
 
-//Éú³ÉÒ»¸öËæ»úÍ¼£¬°üÀ¨n¸ö¶¥µã£¬Ã¿¸ö¶¥µãºÍÆäËü¶¥µãÁ¬±ßµÄ¸ÅÂÊÎªp
+//ç”Ÿæˆä¸€ä¸ªéšæœºå›¾ï¼ŒåŒ…æ‹¬nä¸ªé¡¶ç‚¹ï¼Œæ¯ä¸ªé¡¶ç‚¹å’Œå…¶å®ƒé¡¶ç‚¹è¿è¾¹çš„æ¦‚ç‡ä¸ºp
 int randgengraph(int n, float p, bool directional, bool weighted, const char *filename, int seed)
 {
     srand(seed);
     char *content = (char *)malloc(5000000);
     if (!content)
     {
-        printf("·ÖÅä´æ´¢¿Õ¼äÊ§°Ü£¡\n");
+        printf("åˆ†é…å­˜å‚¨ç©ºé—´å¤±è´¥ï¼\n");
         system("pause");
         exit(0);
     }
     FILE *fp = fopen(filename, "wb");
     if (!fp)
     {
-        printf("Éú³ÉÍ¼ÎÄ¼ş%sÊ±Ê§°Ü£¡\n", filename);
+        printf("ç”Ÿæˆå›¾æ–‡ä»¶%sæ—¶å¤±è´¥ï¼\n", filename);
         system("pause");
         exit(0);
     }
-    long offset = 0; // contentµ±Ç°µÄĞ´ÈëÎ»ÖÃ
-    int ne = 0;      //Éú³É±ßÊı
+    long offset = 0; // contentå½“å‰çš„å†™å…¥ä½ç½®
+    int ne = 0;      //ç”Ÿæˆè¾¹æ•°
     for (int i = 0; i < n; i++)
-        offset += sprintf(content + offset, "%3d %5d\n", i, rand() % 100); //Ğ´Èë¶¥µãµÄ±àºÅºÍ¶¥µãËæ»úÈ¨Öµ
+        offset += sprintf(content + offset, "%3d %5d\n", i, rand() % 100); //å†™å…¥é¡¶ç‚¹çš„ç¼–å·å’Œé¡¶ç‚¹éšæœºæƒå€¼
     int pn = (int)(10000 * p);
     if (directional)
-    { //ÓĞÏòÍ¼
+    { //æœ‰å‘å›¾
         for (int i = 0; i < n; i++)
             for (int j = 0; j < n; j++)
                 if (i != j && rand() % 10000 < pn)
@@ -93,7 +94,7 @@ int randgengraph(int n, float p, bool directional, bool weighted, const char *fi
                 }
     }
     else
-    { //ÎŞÏòÍ¼
+    { //æ— å‘å›¾
         for (int i = 0; i < n; i++)
             for (int j = i; j < n; j++)
                 if (i != j && rand() % 10000 < pn)
@@ -104,41 +105,41 @@ int randgengraph(int n, float p, bool directional, bool weighted, const char *fi
     }
     char ch[40];
     int sz = sprintf(ch, "%d %7d %5s %5s\n", n, ne, weighted ? "true" : "false", directional ? "true" : "false");
-    fwrite(&ch, sz, 1, fp);         //Ğ´ÈëÍ¼µÄ¶¥µãÊıºÍ±ßÊı
-    fwrite(content, offset, 1, fp); //Ğ´ÈëÍ¼µÄ¶¥µãºÍ±ßµÄĞÅÏ¢
+    fwrite(&ch, sz, 1, fp);         //å†™å…¥å›¾çš„é¡¶ç‚¹æ•°å’Œè¾¹æ•°
+    fwrite(content, offset, 1, fp); //å†™å…¥å›¾çš„é¡¶ç‚¹å’Œè¾¹çš„ä¿¡æ¯
     fclose(fp);
     free(content);
 }
 
-//´ÓÎÄ¼şÖĞ¶ÁÈëÍ¼£¬ÔÚÄÚ´æÖĞÉú³ÉÍ¼µÄ±íÊ¾
+//ä»æ–‡ä»¶ä¸­è¯»å…¥å›¾ï¼Œåœ¨å†…å­˜ä¸­ç”Ÿæˆå›¾çš„è¡¨ç¤º
 void initgraph(Graph *g, const char *gfile)
 {
     FILE *fp = fopen(gfile, "r");
     if (!fp)
     {
-        printf("¶ÁÈ¡Í¼Êı¾İÎÄ¼ş³ö´í£¡\n");
+        printf("è¯»å–å›¾æ•°æ®æ–‡ä»¶å‡ºé”™ï¼\n");
         system("pause");
         exit(0);
     }
     char bv[10];
-    //¶ÁÈ¡Í¼µÄ»ù±¾ĞÅÏ¢
+    //è¯»å–å›¾çš„åŸºæœ¬ä¿¡æ¯
     fscanf(fp, "%u%u%s", &(g->nv), &(g->ne), bv);
     printf("%d %d %s", g->ne, g->nv, bv);
     g->weighted = strcmp(bv, "true") == 0 ? true : false;
     fscanf(fp, "%s", bv);
     g->dirctional = strcmp(bv, "true") == 0 ? true : false;
-    //¶ÁÈ¡¶¥µãĞÅÏ¢
+    //è¯»å–é¡¶ç‚¹ä¿¡æ¯
     for (int i = 0; i < g->nv; i++)
     {
         fscanf(fp, "%d%d", &(g->v[i].id), &(g->v[i].w));
         g->v[i].degree = 0;
-        // printf("¶¥µã%d-È¨%d\n", g->v[i].id, g->v[i].w);
+        // printf("é¡¶ç‚¹%d-æƒ%d\n", g->v[i].id, g->v[i].w);
     }
-    //¶ÁÈ¡±ßĞÅÏ¢
+    //è¯»å–è¾¹ä¿¡æ¯
     for (unsigned long i = 0; i < g->ne; i++)
     {
         fscanf(fp, "%u%u%d", &(g->e[i].h), &(g->e[i].t), &(g->e[i].w));
-        // printf("±ß:%u-%u=>%d\n", g->e[i].h, g->e[i].t, g->e[i].w);
+        // printf("è¾¹:%u-%u=>%d\n", g->e[i].h, g->e[i].t, g->e[i].w);
         g->e[i].id = i;
         unsigned h, t;
         h = g->e[i].h;
@@ -150,13 +151,13 @@ void initgraph(Graph *g, const char *gfile)
     fclose(fp);
 }
 
-//´òÓ¡ÁÚ½Ó±íµÄĞÅÏ¢
+//æ‰“å°é‚»æ¥è¡¨çš„ä¿¡æ¯
 void printgraph(Graph *g)
 {
-    printf("Í¼µÄ»ù±¾ĞÅÏ¢:¶¥µãÊı(%u)-±ßÊı(%lu)-%s-%s\n", g->nv, g->ne, g->weighted ? "¼ÓÈ¨Í¼" : "µÈÈ¨Í¼", g->dirctional ? "ÓĞÏòÍ¼" : "ÎŞÏòÍ¼");
+    printf("å›¾çš„åŸºæœ¬ä¿¡æ¯:é¡¶ç‚¹æ•°(%u)-è¾¹æ•°(%lu)-%s-%s\n", g->nv, g->ne, g->weighted ? "åŠ æƒå›¾" : "ç­‰æƒå›¾", g->dirctional ? "æœ‰å‘å›¾" : "æ— å‘å›¾");
     for (int i = 0; i < g->nv; i++)
     {
-        printf("ID(%u)-¶È(%d)-È¨(%d)-±ß±í t(eid|w):%u", g->v[i].id, g->v[i].degree, g->v[i].w, g->v[i].id);
+        printf("ID(%u)-åº¦(%d)-æƒ(%d)-è¾¹è¡¨ t(eid|w):%u", g->v[i].id, g->v[i].degree, g->v[i].w, g->v[i].id);
         for (int j = 0; j < g->v[i].degree; j++)
         {
             unsigned long e = g->v[i].edges[j];
@@ -170,10 +171,10 @@ void printgraph(Graph *g)
     }
 }
 
-//¹ã¶ÈÓÅÏÈËÑË÷
+//å¹¿åº¦ä¼˜å…ˆæœç´¢
 void BFS(Graph *g, int id, bool Visited[])
 {
-    //´æ´¢ËÑË÷±ß½ç£¬Fringe[0]´æ·ÅÔªËØ¸öÊı
+    //å­˜å‚¨æœç´¢è¾¹ç•Œï¼ŒFringe[0]å­˜æ”¾å…ƒç´ ä¸ªæ•°
     int Fringe[MAXVERTEX];
     Fringe[0] = 1, Fringe[1] = id;
     while (Fringe[0])
@@ -202,10 +203,10 @@ void BFS(Graph *g, int id, bool Visited[])
     }
 }
 
-//Éî¶ÈÓÅÏÈËÑË÷
+//æ·±åº¦ä¼˜å…ˆæœç´¢
 void DFS(Graph *g, int id, bool Visited[])
 {
-    //´æ´¢ËÑË÷±ß½ç£¬Fringe[0]´æ·ÅÔªËØ¸öÊı
+    //å­˜å‚¨æœç´¢è¾¹ç•Œï¼ŒFringe[0]å­˜æ”¾å…ƒç´ ä¸ªæ•°
     int Fringe[MAXVERTEX];
     Fringe[0] = 1, Fringe[1] = id;
     while (Fringe[0])
@@ -240,18 +241,30 @@ void DFS(Graph *g, int id, bool Visited[])
     }
 }
 
-// Path[i]´æ´¢idµ½iµÄ×î¶ÌÂ·¾¶³¤¶È£¬¼°Â·¾¶ÖĞiµÄÇ°Çı
+//è¾“å‡ºæœ€çŸ­è·¯å¾„
+void PrintPath(Graph *g, int id, int t, int path[][2])
+{
+    if (id == t)
+    {
+        printf("%d->", id);
+        return;
+    }
+    PrintPath(g, id, path[t][1], path);
+    printf("%d->", t);
+}
+
+// Path[i]å­˜å‚¨idåˆ°içš„æœ€çŸ­è·¯å¾„é•¿åº¦ï¼ŒåŠè·¯å¾„ä¸­içš„å‰é©±
 void Dijkstra(Graph *g, int id, int Path[][2])
 {
-    // Visited´æ´¢ÒÑ¾­ÕÒµ½×î¶ÌÂ·¾¶µÄ¶¥µã
+    // Visitedå­˜å‚¨å·²ç»æ‰¾åˆ°æœ€çŸ­è·¯å¾„çš„é¡¶ç‚¹
     bool Visited[g->nv];
     memset(Visited, 0, sizeof(Visited));
-    //ËÑË÷±ß½ç£¬°´Â·¾¶³¤¶ÈÉıĞò
+    //æœç´¢è¾¹ç•Œï¼ŒæŒ‰è·¯å¾„é•¿åº¦å‡åº
     int Fringe[MAXVERTEX];
     Fringe[0] = 1, Fringe[1] = id;
     for (int i = 0; i < g->nv; i++)
     {
-        Path[i][0] = 1000;
+        Path[i][0] = MAXLEN;
         Path[i][1] = -1;
     }
     Path[id][0] = 0;
@@ -264,6 +277,7 @@ void Dijkstra(Graph *g, int id, int Path[][2])
         Fringe[0]--;
         if (!Visited[s])
         {
+            printf("%d->", s);
             Visited[s] = true;
             int pos = getVexIdx(g, s);
             for (int i = 0; i < g->v[pos].degree; i++)
@@ -291,9 +305,14 @@ void Dijkstra(Graph *g, int id, int Path[][2])
             }
         }
     }
+    printf("\n");
+    for (int i = 0; i < g->nv; i++) {
+        PrintPath(g, id, g->v[i].id, Path);
+        printf("(w=%d)\n", Path[g->v[i].id][0]);
+    }
 }
 
-//ÁªÍ¨Æ¬ÊıÁ¿
+//è”é€šç‰‡æ•°é‡
 int Wnum(Graph *g)
 {
     int count = 0;
@@ -313,7 +332,7 @@ int Wnum(Graph *g)
 
 int main()
 {
-    //Éú³ÉÍ¼
+    //ç”Ÿæˆå›¾
     Graph *g = (Graph *)malloc(sizeof(Graph));
     if (!g)
     {
@@ -321,26 +340,26 @@ int main()
         system("pause");
         exit(0);
     }
-    randgengraph(10, 0.5, 1, 1, "graph.txt", 5);
+    randgengraph(20, 0.5, 1, 1, "graph.txt", 99);
     initgraph(g, "graph.txt");
     printgraph(g);
-    // ²âÊÔDFS
+    // æµ‹è¯•DFS
+    printf("æµ‹è¯•DFS: \n");
     bool Visited[g->nv];
     memset(Visited, 0, sizeof(Visited));
     DFS(g, 0, Visited);
     printf("\n");
-    //²âÊÔBFS
+    //æµ‹è¯•BFS
+    printf("æµ‹è¯•BFS: \n");
     memset(Visited, 0, sizeof(Visited));
     BFS(g, 0, Visited);
     printf("\n");
-    //²âÊÔÁªÍ¨Æ¬ÊıÁ¿
+    //æµ‹è¯•è”é€šç‰‡æ•°é‡
+    printf("æµ‹è¯•è”é€šç‰‡æ•°é‡: \n");
     printf("%d\n", Wnum(g));
-    //²âÊÔ×î¶ÌÂ·¾¶
+    //æµ‹è¯•æœ€çŸ­è·¯å¾„
+    printf("æµ‹è¯•æœ€çŸ­è·¯å¾„: \n");
     int Path[g->nv][2];
     Dijkstra(g, 0, Path);
-    for (int i = 0; i < g->nv; i++)
-    {
-        printf("%d %d\n", Path[i][0], Path[i][1]);
-    }
     system("pause");
 }
