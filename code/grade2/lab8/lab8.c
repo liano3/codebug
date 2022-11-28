@@ -294,7 +294,7 @@ void Dijkstra(Graph *g, int id, int Path[][2])
                     int insert_pos = 1;
                     for (int j = 1; j <= Fringe[0]; j++)
                     {
-                        if (cur > Fringe[j])
+                        if (cur > Path[Fringe[j]][0])
                             insert_pos = j + 1;
                     }
                     for (int j = Fringe[0]; j >= insert_pos; j--)
